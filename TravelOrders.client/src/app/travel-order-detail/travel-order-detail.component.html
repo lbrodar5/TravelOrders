@@ -1,0 +1,19 @@
+<div class="container my-5">
+
+    <p>Car: {{travelOrder.car.Name}}</p>
+    <h2>Relation:</h2>
+    <p>From: {{travelOrder.StartLocation}}</p>
+    <p>To: {{travelOrder.EndLocation}}</p>
+
+    @if (travelOrder.otherExpenses.length > 0) {
+        <h2>Other expenses:</h2>
+        @for (otherExpense of travelOrder.otherExpenses; track $index) {
+            <app-other-expense [otherExpense]="otherExpense"></app-other-expense>
+        }
+    }
+
+    <p class="pt-3">Duration: {{travelOrder.Duration}}</p>
+    <p>Distance: {{travelOrder.Distance}}km</p>
+    <p>Total amount: {{travelOrder.Amount}}€</p>
+
+</div>

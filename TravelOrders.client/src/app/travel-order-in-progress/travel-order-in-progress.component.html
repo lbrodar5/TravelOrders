@@ -1,0 +1,53 @@
+
+
+<div class="container">
+  <button mat-button [matMenuTriggerFor]="carMenu"> @if(!car) {Select a car} @else { {{car.Name}} }<mat-icon>keyboard_arrow_down</mat-icon></button>
+  <mat-menu #carMenu="matMenu">
+  @for (car of cars; track $index) {
+    <button mat-menu-item  (click)="selectCar($index)">{{car.Name}}</button>
+  }
+  </mat-menu>
+  @if (car && !startKilometrage){
+    <app-ocr (getKilometrage)="addKilometrage($event)"></app-ocr>
+  } 
+  @if (startKilometrage) {
+    <p>Start kilometrage: {{startKilometrage}}km</p>
+  }
+  @if (endKilometrage) {
+    <p>End kilometrage: {{endKilometrage}}km</p>
+  }
+  @if (!arrivedAtEndLocation && startKilometrage) {
+    <div class="d-flex justify-content-center align-items-center my-5">
+      @if (startLocation) { 
+        <button mat-raised-button color="primary" class="p-4" (click)="onGetLocation()">End</button>
+      } @else {
+        <button mat-raised-button color= "primary" class="p-4" (click)="onGetLocation()">Start</button>
+      }
+    </div>
+  }
+    @if (startLocation) {
+      <p>Started from: {{startLocation}}</p>
+
+      @if (endLocation) {
+        <p>Arrived at: {{endLocation}}</p>
+        <p>Dutarion: {{duration}}</p>
+      }
+      <app-create-other-expense (newOtherExpense)="addOtherExpense($event)"></app-create-other-expense>
+      @if(otherExpenses.length > 0) {
+        <h2>Other expenses:</h2>
+        @for (otherExpense of otherExpenses; track $index) {
+          <app-other-expense [otherExpense]="otherExpense"></app-other-expense>
+        }
+      }
+    }
+
+    @if (endLocation && !endKilometrage) {
+      <app-ocr class="p-4" (getKilometrage)="addKilometrage($event)"></app-ocr>
+    }
+    @if(endKilometrage) {
+      <div class="w-100 text-center">
+        <button mat-raised-button class="my-4" color="primary" routerLink="/home" (click)="onAddTravelOrder()">Finish</button>
+      </div>
+    }
+</div>
+

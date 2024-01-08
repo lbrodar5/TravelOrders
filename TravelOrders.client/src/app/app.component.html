@@ -1,0 +1,14 @@
+
+<mat-toolbar>
+    <div class="container d-flex justify-content-between">
+        <span class="d-flex align-items-center">
+            <mat-icon >card_travel</mat-icon>
+            <span>Travel Orders</span>
+        </span>
+        <button mat-button [matMenuTriggerFor]="menu">{{firstName}} {{lastName}} <mat-icon>keyboard_arrow_down</mat-icon> </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Sign out</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

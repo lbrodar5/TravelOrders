@@ -1,0 +1,41 @@
+<mat-expansion-panel #expansionPanel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Take a picture of kilometrage
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <input type="file" class="file-input" accept="image/*" capture="environment"
+    (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload">
+
+    {{fileName}}
+
+        <button mat-mini-fab color="primary" class="upload-btn"
+        (click)="fileUpload.click()">
+        <mat-icon>camera_alt</mat-icon>
+        </button>
+    </div>
+    <div class="text-center">
+        <img [src]="imageUrl"  #image class="img-fluid"/>
+        @if (kilometrage) {
+            <p>
+            Kilometrage: {{kilometrage}}km
+            </p>
+            <p>
+                If it's wrong try again.
+            </p>
+        }
+        @if (loading){
+            <div class="w-100 d-flex justify-content-center">
+                <mat-spinner style="height: 64px;"></mat-spinner>
+            </div>
+        }
+    </div>
+    <canvas #canvas></canvas>
+    <img [src]="imageUrlBi" />
+    <mat-action-row>
+        <button mat-button color="primary" (click)="expansionPanel.close(); addKilometrage()" [disabled]="!kilometrage">ADD</button>
+    </mat-action-row>
+</mat-expansion-panel>
